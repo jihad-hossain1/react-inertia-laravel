@@ -8,20 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
+use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    public function authorize()
-    {
-        return true;
-    }
+   
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tasks = Task::all();
-        return response()->json($tasks);
+        $tasks = Task::latest()->paginate(10);
+        return inertia('tasks/Tasks', ['tasks' => $tasks]);
     }
 
     /**
@@ -29,16 +27,16 @@ class TaskController extends Controller
      */
     public function create(Request $request)
     {
-        $validData = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'priority' => ['required'],
-            'due_date' => ['required', 'date']
-        ]);
+        // $validData = $request->validate([
+        //     'title' => ['required', 'string', 'max:255'],
+        //     'description' => ['required', 'string', 'max:255'],
+        //     'priority' => ['required'],
+        //     'due_date' => ['required', 'date']
+        // ]);
 
         
        
-        Task::create($validData);
+        // Task::create($validData);
         return response()->json(['mess' => 'Task created successfully']);
     }
 
@@ -47,36 +45,36 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'priority' => ['required'],
-            'due_date' => ['required', 'date'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'title' => ['required', 'string', 'max:255'],
+        //     'description' => ['required', 'string', 'max:255'],
+        //     'priority' => ['required'],
+        //     'due_date' => ['required', 'date'],
+        // ]);
     
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'message' => 'Validation failed',
+        //         'errors' => $validator->errors()
+        //     ], 422);
+        // }
     
-        try {
-            $validData = $validator->validated();
-            Task::create($validData);
+        // try {
+        //     $validData = $validator->validated();
+        //     Task::create($validData);
     
-            return response()->json(['success' => 'Task created successfully'], 201);
-        } catch (QueryException $e) {
-            // You can also log the error: Log::error($e);
-            // return response()->json([
-            //     'message' => 'Database error',
-            //     // 'error' => $e->getMessage()  // Or omit this in production
-            // ], 500);
+        //     return response()->json(['success' => 'Task created successfully'], 201);
+        // } catch (QueryException $e) {
+        //     // You can also log the error: Log::error($e);
+        //     // return response()->json([
+        //     //     'message' => 'Database error',
+        //     //     // 'error' => $e->getMessage()  // Or omit this in production
+        //     // ], 500);
 
-            return response()->json([
-                'message' => 'An error occurred while saving the task.'
-            ], 500);
-        }
+        //     return response()->json([
+        //         'message' => 'An error occurred while saving the task.'
+        //     ], 500);
+        // }
     }
 
     /**
