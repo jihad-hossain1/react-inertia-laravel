@@ -22,7 +22,7 @@ const Home = ({ name }) => {
                             Get Started
                         </Link>
                         <Link
-                            href="/tasks/new"
+                            href="/tasks/create"
                             className="bg-white text-blue-500 border-2 border-blue-500 px-8 py-3 rounded-lg hover:bg-blue-50 transition-all transform hover:scale-105"
                         >
                             Create Task

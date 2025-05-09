@@ -16,16 +16,11 @@ const Layout = ({ children }) => {
                         <div className="flex gap-6 items-center">
                             <Link 
                                 href="/tasks" 
-                                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                                className="text-gray-600 hover:text-gray-900 font-medium transition-colors bg-slate-100 px-4 py-1 rounded-md"
                             >
                                 Tasks
                             </Link>
-                            <Link 
-                                href="/tasks/new" 
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                            >
-                                Create Task
-                            </Link>
+                            
                         </div>
                     </nav>
                 </div>
@@ -38,7 +33,7 @@ const Layout = ({ children }) => {
             <footer className="bg-gray-50 border-t border-gray-200">
                 <div className="container mx-auto px-4 py-6">
                     <p className="text-center text-gray-600">
-                        © {new Date().getFullYear()} YourBrand. All rights reserved.
+                        © {new Date().getFullYear()} Task Scheduler. All rights reserved.
                     </p>
                 </div>
             </footer>
